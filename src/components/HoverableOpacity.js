@@ -8,7 +8,7 @@ class HoverableOpacity extends React.Component {
   }
 
   render() {
-    const { style, onHover, onPress, ...passThrough } = this.props;
+    const { style, hoverStyle, onPress, ...passThrough } = this.props;
 
     return (
       <TouchableOpacity
@@ -19,7 +19,7 @@ class HoverableOpacity extends React.Component {
         <View
           style={{flex: 1, borderRadius: this.props.style.borderRadius, justifyContent: 'center'}}
           onMouseOver={() => {
-            this.setState({ color: onHover.backgroundColor });
+            this.setState({ color: hoverStyle.backgroundColor });
           }}
           onMouseOut={() => {
             this.setState({ color: style.backgroundColor });

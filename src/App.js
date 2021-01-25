@@ -1,7 +1,8 @@
 import React from "react";
-import { AppRegistry, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Particles from './components/Particles';
-import HoverableOpacity from './components/HoverableOpacity'
+import HoverableOpacity from './components/HoverableOpacity';
+import './fonts.css';
 
 class App extends React.Component {
   render() {
@@ -57,8 +58,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
-
-AppRegistry.registerComponent("App", () => App);
-AppRegistry.runApplication("App", { rootTag: document.getElementById("root") });
 
 export default App;

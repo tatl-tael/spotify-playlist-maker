@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     alignItems: 'center',
+    top: '20%',
+    height: '30%'
   },
   title: {
     fontSize: 70,
@@ -52,6 +54,7 @@ const styles = StyleSheet.create({
     width: '450px',
     borderRadius: '40px',
     justifyContent: 'center',
+    top: '20%',
   },
   buttonText: {
     fontSize: 20,

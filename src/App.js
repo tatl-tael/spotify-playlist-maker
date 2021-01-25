@@ -16,7 +16,11 @@ class App extends React.Component {
         <View style={styles.content}>
           <View><Text style={styles.title}>Playlist Maker</Text></View>
           <View><Text style={styles.description}>Create meaningful playlists using your Spotify Liked Songs!</Text></View>
-          <HoverableOpacity style={StyleSheet.flatten(styles.button)} onHover={{...StyleSheet.flatten(styles.button), backgroundColor: '#4ac776'}} onPress={loading}>
+          <HoverableOpacity
+            style={StyleSheet.flatten(styles.button)}
+            onHover={{...StyleSheet.flatten(styles.button), backgroundColor: '#2df162'}}
+            onPress={loading}
+          >
             <Text style={styles.buttonText}>Connect with Spotify</Text>
           </HoverableOpacity>
         </View>
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
     color: '#b3b3b3',
-    fontFamily: 'Proxima-Nova-Thin',
+    fontFamily: 'Proxima-Nova-Regular',
   },
   button: {
     backgroundColor: '#1db954',

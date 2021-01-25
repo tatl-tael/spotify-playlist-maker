@@ -9,6 +9,9 @@ class App extends React.Component {
     let loading = () => {
       alert("Logging into Spotify");
     };
+    let openGitHub = () => {
+      window.open("https://github.com/tatl-tael/spotify-playlist-maker.git", "_blank");
+    };
 
     return (
       <View style={styles.layout}>
@@ -24,6 +27,12 @@ class App extends React.Component {
           >
             <Text style={styles.buttonText}>Connect with Spotify</Text>
           </HoverableOpacity>
+        <View style={styles.footer}>
+          <Text 
+            style={styles.footerText}
+            onPress={openGitHub}
+          >GitHub</Text>
+        </View>
         </View>
       </View>
     );
@@ -64,6 +73,16 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     alignSelf: 'center',
+  },
+  footer: {
+    alignItems: 'center',
+    position: 'fixed',
+    bottom: '15%',
+  },
+  footerText: {
+    fontSize: 20,
+    color: '#1db954',
+    fontFamily: 'Proxima-Nova-Regular',
   },
 });
 

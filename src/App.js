@@ -20,6 +20,7 @@ class App extends React.Component {
             style={StyleSheet.flatten(styles.button)}
             onHover={{...StyleSheet.flatten(styles.button), backgroundColor: '#2df162'}}
             onPress={loading}
+            activeOpacity={100}
           >
             <Text style={styles.buttonText}>Connect with Spotify</Text>
           </HoverableOpacity>

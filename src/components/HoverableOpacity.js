@@ -17,6 +17,7 @@ class HoverableOpacity extends React.Component {
         onPress={onPress}
       >
         <View
+          style={{flex: 1, borderRadius: this.props.style.borderRadius, justifyContent: 'center'}}
           onMouseOver={() => {
             this.setState({ color: onHover.backgroundColor });
           }}

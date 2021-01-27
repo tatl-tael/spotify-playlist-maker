@@ -12,7 +12,9 @@ dotenv.config();
 
 // Getting Client ID
 const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_ID;
 app.set('client_id', client_id);
+app.set('client_secret', client_secret)
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;

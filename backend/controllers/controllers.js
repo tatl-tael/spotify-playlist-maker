@@ -24,10 +24,44 @@ const login = async (req, res, next) => {
   res.redirect(URL);
 };
 
-const checkLogin = (req, res, next) => {
-  res.status(200).json({
-    body: 'you have logged in',
-  });
+const checkLogin = async (req, res, next) => {
+  if ('error' in req.query) {
+      console.log('Error in login');
+      res.status(400).json({
+          body: 'Error when signing in with Spotify'
+      });
+  }
+  else {
+      const AUTHORIZATION_CODE = req.query.code;
+      const CLIENT_ID = req.app.get('client_id')
+      const CLIENT_SECRET = req.app.get('client_secret')
+      const AUTH = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
+      let config = {
+        headers: {
+            'Authorization': `Basic ${AUTH}`,
+            'content-type': 'application/x-www-form-urlencoded',
+        }
+      }
+      let data = {
+        grant_type: 'authorization_code',
+        code: AUTHORIZATION_CODE,
+        redirect_uri: encodeURIComponent('http://localhost:5000/api/check-login'),
+      }
+      const URL = 'https://accounts.spotify.com/api/token';
+      const body = `grant_type=${data.grant_type}&code=${data.code}&redirect_uri${data.redirect_uri}`;
+
+      let response = await axios.post(URL, body, config)
+      .then((response) => {
+        return JSON.stringify(response)
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+
+      res.status(200).json({
+          msg: response
+      })
+  }
 };
 
 module.exports.saySomething = saySomething;

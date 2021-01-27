@@ -3,9 +3,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const dotenv = require("dotenv");
 
 // Create a new express application named 'app'
 const app = express();
+
+dotenv.config();
+
+// Getting Client ID
+const client_id = process.env.CLIENT_ID;
+app.set('client_id', client_id);
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
@@ -54,3 +61,5 @@ app.get("*", (req, res) => {
 
 // Configure our server to listen on the port defiend by our port variable
 app.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
+
+module.exports = app

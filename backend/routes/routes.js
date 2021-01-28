@@ -5,5 +5,6 @@ const controllers = require('./../controllers/controllers');
 router.get('/login', controllers.login);
 router.get('/say-something', controllers.saySomething);
 router.get('/check-login', controllers.checkLogin);
+router.get('/get-user-info', controllers.getUserInfo); 
 
 module.exports = router;

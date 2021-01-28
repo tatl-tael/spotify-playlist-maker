@@ -12,7 +12,7 @@ dotenv.config();
 
 // Getting Client ID
 const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
 app.set('client_id', client_id);
 app.set('client_secret', client_secret)
 

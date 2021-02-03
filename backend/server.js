@@ -1,12 +1,14 @@
 // Import dependencies
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const path = require("path");
 const dotenv = require("dotenv");
 
 // Create a new express application named 'app'
 const app = express();
+app.use(cookieParser());
 
 dotenv.config();
 
@@ -21,7 +23,7 @@ const port = process.env.PORT || 5000;
 
 // This application level middleware prints incoming requests to the servers console, useful to see incoming requests
 app.use((req, res, next) => {
-  console.log(`Request_Endpoint: ${req.method} ${req.url}`);
+  console.log(`Request_Endpoint: ${req.method} [${req.ip}] ${req.url}`);
   next();
 });
 

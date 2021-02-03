@@ -1,30 +1,89 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import Particles from './components/Particles';
 import HoverableOpacity from './components/HoverableOpacity';
 import HoverableText from './components/HoverableText'
 import './fonts.css';
 
+import axios from 'axios';
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // Logged In state
+    this.state = {
+      loggedIn: false,
+      name: '',
+    };
+  }
+
+  componentDidMount() { 
+    // When page is mounted check if logged in
+    const url = `http://localhost:5000/api/get-my-info`;
+    fetch(url, { credentials: "include" })
+    .then( (res) => res.json())
+    .then( (json) => {
+      console.log(json)
+      this.setState({
+        loggedIn: json.loggedIn,
+        name: json.name,
+      });
+    })
+    .catch( (err) => { console.log(err) })
+  }
+
   render() {
-    let loading = () => {
-      alert("Logging into Spotify");
+    let login = async () => {
+      // Get Credentials from Backend Server
+      const credentials = await fetch('http://localhost:5000/api/get-spotify-credentials')
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        return json.client_id
+      })
+      .catch((err) => {console.log(err)});  
+
+      // Setup Payload
+      const data = {
+        client_id: credentials,
+        scope: encodeURIComponent(['user-read-email', 'user-read-private']),
+        response_type: 'code',
+        redirect_uri: encodeURIComponent('http://localhost:5000/api/record-login'),
+      };
+      const url =
+        'https://accounts.spotify.com/authorize' +
+        `?client_id=${data.client_id}` +
+        `&response_type=${data.response_type}` +
+        `&redirect_uri=${data.redirect_uri}` +
+        `&scope=${data.scope}`;
+      
+      // Launch Spotify URL
+      const result = await Linking.openURL(url);
     };
 
     let openGitHub = () => {
-      window.open("https://github.com/tatl-tael/spotify-playlist-maker.git", "_blank");
+      window.open("https://github.com/tatl-tael/spotify-playlist-maker.git", "_blank"); 
     };
+
+    // Logged In logic
+    let subtitle;
+    if (this.state.loggedIn) {
+      subtitle = <View><Text style={styles.description}>Welcome {this.state.name}!</Text></View>
+    } else {
+      subtitle = <View><Text style={styles.description}>Create meaningful playlists using your Spotify Liked Songs!</Text></View>
+    }
 
     return (
       <View style={styles.layout}>
         <Particles/>
         <View style={styles.content}>
           <View><Text style={styles.title}>Playlist Maker</Text></View>
-          <View><Text style={styles.description}>Create meaningful playlists using your Spotify Liked Songs!</Text></View>
+          {subtitle}
           <HoverableOpacity
             style={StyleSheet.flatten(styles.button)}
             hoverStyle={{...StyleSheet.flatten(styles.button), backgroundColor: '#2df162'}}
-            onPress={loading}
+            onPress={login}
             activeOpacity={100}
           >
             <Text style={styles.buttonText}>Connect with Spotify</Text>

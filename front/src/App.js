@@ -36,20 +36,15 @@ class App extends React.Component {
     let login = async () => {
       // Get Credentials from Backend Server
       const credentials = await fetch('http://localhost:5000/api/get-spotify-credentials')
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        return json.client_id
-      })
-      .catch((err) => {console.log(err)});  
+      .then( response => response.json() )
+      .catch( err => { console.log(err) });  
 
       // Setup Payload
       const data = {
-        client_id: credentials,
+        client_id: credentials.client_id,
         scope: encodeURIComponent(['user-read-email', 'user-read-private']),
         response_type: 'code',
-        redirect_uri: encodeURIComponent('http://localhost:5000/api/record-login'),
+        redirect_uri: encodeURIComponent(credentials.client_redirect_url),
       };
       const url =
         'https://accounts.spotify.com/authorize' +

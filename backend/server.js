@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const path = require("path");
 const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
 
 // Create a new express application named 'app'
 const app = express();
@@ -16,8 +15,10 @@ dotenv.config();
 // Getting Client ID
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
+const client_redirect_url = process.env.CLIENT_REDIRECT_URL;
 app.set('client_id', client_id);
 app.set('client_secret', client_secret);
+app.set('client_redirect_url', client_redirect_url);
 
 // Setting up cookie parser
 app.use(cookieParser());

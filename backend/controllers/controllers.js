@@ -17,6 +17,7 @@ const recordLogin = async (req, res, next) => {
       const AUTHORIZATION_CODE = req.query.code;
       const CLIENT_ID = req.app.get('client_id')
       const CLIENT_SECRET = req.app.get('client_secret')
+      const CLIENT_REDIRECT_URL = req.app.get('client_redirect_url')
       const AUTH = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
       
       // Setup Request
@@ -29,7 +30,7 @@ const recordLogin = async (req, res, next) => {
       let data = {
         grant_type: 'authorization_code',
         code: AUTHORIZATION_CODE,
-        redirect_uri: encodeURIComponent('http://localhost:5000/api/record-login'),
+        redirect_uri: encodeURIComponent(CLIENT_REDIRECT_URL),
       }
       const URL = 'https://accounts.spotify.com/api/token';
       const body = `grant_type=${data.grant_type}&code=${data.code}&redirect_uri=${data.redirect_uri}`;
@@ -90,7 +91,7 @@ const getMyInfo = async (req, res, next) => {
 
 const getSpotifyCredentials = async ( req, res, next ) => {
   // Return credentials
-  res.status(200).json({ client_id: req.app.get('client_id') });
+  res.status(200).json({ client_id: req.app.get('client_id'), client_redirect_url: req.app.get('client_redirect_url') });
 }
 
 module.exports.recordLogin = recordLogin;

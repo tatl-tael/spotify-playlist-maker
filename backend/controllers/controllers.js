@@ -5,11 +5,11 @@ const e = require('express');
 
 const recordLogin = async (req, res, next) => {
   // Error Handler
-  if ('error' in req.query) {
-      console.log('Error in login');
-      res.status(400).json({
-          body: 'Error when signing in with Spotify'
-      });
+  if ("error" in req.query) {
+    console.log("Error in login");
+    res.status(400).json({
+      body: "Error when signing in with Spotify",
+    });
   }
   // Success Handler
   else {

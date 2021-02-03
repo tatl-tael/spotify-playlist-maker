@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const path = require("path");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 // Create a new express application named 'app'
 const app = express();
@@ -16,7 +17,10 @@ dotenv.config();
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 app.set('client_id', client_id);
-app.set('client_secret', client_secret)
+app.set('client_secret', client_secret);
+
+// Setting up cookie parser
+app.use(cookieParser());
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
